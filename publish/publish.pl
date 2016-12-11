@@ -3,7 +3,6 @@
 #
 # Laravel アプリケーションをデプロイします。
 #
-#
 
 use strict;
 use utf8;
@@ -17,6 +16,7 @@ sub  _println {
 
 sub _get_yaml_path {
 
+	# スクリプト自身と同じ場所にある playbook.yml を使用します。
 	my $parent = File::Basename::dirname($0);
 	my $path = File::Spec::Functions::catfile(
 			$parent, 'playbook.yml');
