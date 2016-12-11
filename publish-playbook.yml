@@ -12,6 +12,9 @@
       - name: create /var/www/ directory
         file: dest=/var/www/ state=directory owner=root group=root mode=0755
 
+      - name: create /var/www/peta directory
+        file: dest=/var/www/peta state=directory owner=apache group=apache mode=0755
+
       - name: Cloning Project
         git: >
             dest=/var/www/peta
