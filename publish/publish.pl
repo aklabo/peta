@@ -19,7 +19,7 @@ sub _get_yaml_path {
 
 	my $parent = File::Basename::dirname($0);
 	my $path = File::Spec::Functions::catfile(
-			$parent, 'publish-playbook.yml');
+			$parent, 'playbook.yml');
 	return $path;
 }
 
