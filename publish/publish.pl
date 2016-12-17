@@ -26,7 +26,7 @@ sub _get_yaml_path {
 sub _publish {
 
 	my ($path) = @_;
-	system('/usr/local/bin/ansible-playbook', $path);
+	system('ansible-playbook', $path);
 }
 
 sub _main {
