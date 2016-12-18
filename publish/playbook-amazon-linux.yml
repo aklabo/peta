@@ -1,0 +1,58 @@
+#
+# Ansible の Playbook です。
+# GitHub から落としてきた Laravel アプリケーションをローカルコンピューター上にデプロイします。
+#
+
+---
+  - hosts: localhost
+    become: yes
+    become_method: sudo
+    tasks:
+
+        #
+        # ディレクトリを作成します。
+        # 通常、このディレクトリは apache を設置した時に作成されています。
+        #
+
+      - name: create /var/www/ directory
+        file: dest=/var/www/ state=directory owner=root group=root mode=0755
+
+        #
+        # peta ディレクトリを作成します。
+        #
+
+      - name: create /var/www/peta directory
+        file: dest=/var/www/peta state=directory owner=apache group=apache mode=0755
+
+        #
+        # リポジトリを clone します。
+        #
+        # ローカルに変更があると clone に失敗することに注意してください。
+        #
+
+      - name: Cloning Project
+        git: >
+            dest=/var/www/peta
+            repo=https://github.com/aklabo/peta.git
+            update=yes
+            accept_hostkey=yes
+        become: yes
+        become_user: apache
+        # 毎回 create-project してしまい、APP_KEY が変化するのを防ぐ
+        register: cloned
+
+        #      
+        # create-project を実行します。
+        #
+        # 実際にコマンドが実行されるのは最初の一回のみです。
+        #      
+
+      - name: composer create-project
+        composer: >
+            command=create-project
+            working_dir=/var/www/peta/peta-core
+            optimize_autoloader=no
+        become: yes
+        become_user: apache
+        # 毎回 create-project してしまい、APP_KEY が変化するのを防ぐ
+        when: cloned|changed
