@@ -7,10 +7,8 @@ Laravel アプリケーションを /var/www/... に配置するスクリプト�
 ##要件
 
 - Ansible が入っていること。
-	- お使いの Linux ディストリビューションのパッケージシステムからインストールする
-	- EPEL リポジトリからインストールする
-	- pip でインストールする
-	- GitHub リポジトリから clone して rpm をビルドする
+
+#####pip でインストールする
 
 ```
 $ sudo pip install ansible
