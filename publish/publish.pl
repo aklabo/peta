@@ -17,7 +17,9 @@ sub  _println {
 sub _get_os_name {
 
 	my $stream = undef;
-	open($stream, '/etc/os-release');
+	if (!open($stream, '/etc/os-release')) {
+		die($!);
+	}
 	my $os_name = '';
 	while (my $line = <$stream>) {
 		if (-1 == index($line, 'NAME')) {
