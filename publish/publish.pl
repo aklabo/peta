@@ -83,6 +83,7 @@ sub _main {
 	_println('yaml file path: [', $yaml_path, ']');
 
 	chdir('tmp');
+	system('echo done > /tmp/peta-publish.log');
 
 	_publish($yaml_path);
 }
