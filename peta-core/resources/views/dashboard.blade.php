@@ -1,13 +1,19 @@
 <?php
+function _main() {
 
+	$page = array();
+	$page['form'] = array();
+	return $page;
+}
 
-
+$page = _main();
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 
 		<title>peta</title>
+		<meta charset="utf-8">
 
 		<style>
 		html {
@@ -56,8 +62,9 @@
 		}
 		</style>
 
-		<script src="/js/jquery-3.1.1.min.js"></script>
-
+		<!-- jQuery 3.x -->
+		<!-- script src="/js/jquery-3.1.1.min.js"></script -->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<!-- Optional theme -->
@@ -70,15 +77,12 @@
 		<!-- script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script -->
 
 		<script>
-		function onClick(event) {
-
-		}
-
 		function _load_boxes() {
 			// none
 		}
 
 		function _onload_document() {
+
 			_load_boxes();
 		}
 
@@ -167,6 +171,34 @@
 			return comment;
 		}
 
+		function _create_new_box(x, y, text) {
+
+			var new_element = document.createElement('DIV');
+			new_element.id = "";
+			new_element.innerHTML = text;
+			new_element.className = "well div-box";
+			new_element.style.left = "" + x + "px";
+			new_element.style.top = "" + y + "px";
+			var canvas = document.getElementById("div-canvas");
+			if (canvas == null)
+				return;
+			canvas.appendChild(new_element);
+		}
+
+		function _create_new_box_x(x, y, text) {
+
+			var new_element = document.createElement('DIV');
+			new_element.id = "";
+			new_element.innerHTML = text;
+			new_element.className = "div-box";
+			new_element.style.left = "" + x + "px";
+			new_element.style.top = "" + y + "px";
+			var canvas = document.getElementById("div-canvas");
+			if (canvas == null)
+				return;
+			canvas.appendChild(new_element);
+		}
+
 		function _on_click_apply() {
 
 			_hide_inputbox();
@@ -176,17 +208,10 @@
 				return;
 			}
 
-			var comment = _pop_comment_value();
-			var new_element = document.createElement('DIV'); 
-			new_element.id = "";
-			new_element.innerHTML = comment;
-			new_element.className = "div-box";
-			new_element.style.left = "" + dragging_position.x + "px";
-			new_element.style.top = "" + dragging_position.y + "px";
-			var canvas = document.getElementById("div-canvas");
-			if (canvas == null)
-				return;
-			canvas.appendChild(new_element);
+			_create_new_box(
+					dragging_position.x,
+					dragging_position.y,
+					_pop_comment_value());
 		}
 		</script>
 	</head>
@@ -251,25 +276,29 @@
 			<!-- ========================================================== -->
 			<div id="myModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-				<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-						onclick="javascript: _onclick_text_cancel();">&times;</button>
-				<h4 class="modal-title">Modal Header</h4>
-				</div>
-				<div class="modal-body">
-				<p>Some text in the modal.</p>
-				<div class="form-group">
-				<label for="comment">Comment:</label>
-				<textarea class="form-control" rows="5" id="comment"></textarea>
-				</div>
-				</div>
-				<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal"
-						onclick="javascript: _on_click_apply();">apply</button>
-				</div>
-				</div>
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+									onclick="javascript: _onclick_text_cancel();">&times;</button>
+							<h4 class="modal-title">コメントを入力</h4>
+						</div>
+						<div class="modal-body">
+							<!--p>Some text in the modal.</p-->
+							<div class="form-group">
+								<label for="field-01">title:</label>
+								<input type="text" class="form-control" id="field-01">
+							</div>
+							<div class="form-group">
+								<label for="comment">comment:</label>
+								<textarea class="form-control" rows="5" id="comment"></textarea>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal"
+									onclick="javascript: _on_click_apply();">apply</button>
+						</div>
+					</div>
 				</div>
 			</div>
 
