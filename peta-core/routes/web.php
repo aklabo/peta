@@ -20,6 +20,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/preferences', function () {
+    return view('preferences');
+});
+
 Route::get('/examples', function () {
     return view('examples/index');
 });
